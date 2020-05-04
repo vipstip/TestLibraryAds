@@ -1,0 +1,5 @@
+include ':app',':libraryprebid',':PrebidMobile',
+        ':PrebidMobile-core'
+rootProject.name='TestLibraryAds'
+project(':PrebidMobile-core').projectDir = new File('PrebidMobile/PrebidMobile-core')
+include ':testlib'
