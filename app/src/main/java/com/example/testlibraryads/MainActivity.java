@@ -123,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
         PrebidMobile.setPrebidServerAccountId("e8df28e7-78ff-452d-b3af-ff4df83df832");
-        PrebidMobile.setPrebidServerAccountId("e8df28e7-78ff-452d-b3af-ff4df83df832");
-        PrebidMobile.setPrebidServerAccountId("e8df28e7-78ff-452d-b3af-ff4df83df832");
 
         adUnit = new RewardedVideoAdUnit("ac84fd30-aee6-46fe-adcf-b0327181b537");
 
