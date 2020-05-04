@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         adManager = new AdManager(MainActivity.this);
         adManager.setTypeAd(TypeAd.BANNER);
-        adManager.setSize(BannerSize.LARGE_BANNER);
+        adManager.setSize(BannerSize.BANNER);
 //        adManager.setID("1001-1");
 
         adManager.setID("28226736-c0be-4cd6-961f-fd1ef48b058b");
