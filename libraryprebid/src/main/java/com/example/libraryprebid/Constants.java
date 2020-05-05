@@ -25,8 +25,8 @@ class Constants {
     // Prebid server config ids
     private static final String PBS_ACCOUNT_ID_APPNEXUS = "e8df28e7-78ff-452d-b3af-ff4df83df832";
     // DFP ad unit ids
-    private static final String DFP_ADUNIT_ID_Prebid = "/307492156/Prebid_Display";
-//    private static final String DFP_ADUNIT_ID_Prebid = "/5300653/test_adunit_vast_pavliuchyk";
+//    private static final String DFP_ADUNIT_ID_Prebid = "/307492156/Prebid_Display";
+    private static final String DFP_ADUNIT_ID_Prebid = "/5300653/test_adunit_vast_pavliuchyk";
 
 
     static String PBS_ACCOUNT_ID = PBS_ACCOUNT_ID_APPNEXUS;

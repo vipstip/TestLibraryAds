@@ -4,7 +4,7 @@ import com.google.android.gms.ads.AdListener;
 
 public class AdListeners extends AdListener {
 
-    AdListeners() {
+    public AdListeners() {
 
     }
 

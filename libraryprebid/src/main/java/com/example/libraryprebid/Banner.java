@@ -2,31 +2,55 @@ package com.example.libraryprebid;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.widget.FrameLayout;
 
-class Banner extends SetupPB{
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
+
+import org.prebid.mobile.AdUnit;
+import org.prebid.mobile.BannerAdUnit;
+import org.prebid.mobile.OnCompleteListener;
+import org.prebid.mobile.ResultCode;
+import org.prebid.mobile.VideoAdUnit;
+import org.prebid.mobile.addendum.AdViewUtils;
+import org.prebid.mobile.addendum.PbFindSizeError;
+
+
+
+public class Banner {
     private int refresCount = 0;
-    private AdUnits adUnits;
-    private AdViewBanner amBanner;
-    private SizeAd adsize;
+
+    private ResultCode resultCode;
+    private AdUnit adUnit;
+
+    private AdSize adsize;
     private Context context;
     private int autoRefresh = 30000;
 
     private AdListeners adListeners;
     private TypeAd typeAd;
 
-    void loadAd(FrameLayout layout){
-        SetupPBCustum();
+    private PublisherAdView amBanner;
+    private PublisherAdRequest request;
+
+
+    public void loadAd(FrameLayout layout){
+        SetupPB.getInstance();
         setUpBanner(layout);
         loadBanner();
     }
 
 
-    void setTypeAd(TypeAd typeAd) {
+    public void setTypeAd(TypeAd typeAd) {
         this.typeAd = typeAd;
     }
 
-    void setMillisAutoRefres(int autoRefresh) {
+    public void setMillisAutoRefres(int autoRefresh) {
         this.autoRefresh = autoRefresh;
     }
 
@@ -34,48 +58,57 @@ class Banner extends SetupPB{
         return refresCount;
     }
 
-    void setSize(int with, int height){
-        this.adsize = new SizeAd(with,height);
+    public void setSize(int with, int height){
+        this.adsize = new AdSize(with,height);
     }
 
-    void setSize(BannerSize size){
+    public void setSize(BannerSize size){
+
         if (size == BannerSize.MEDIUM_RECTANGLE){
-            this.adsize = new SizeAd(300,250);
+            this.adsize = AdSize.MEDIUM_RECTANGLE;
         }
         else if (size == BannerSize.BANNER){
-            this.adsize = new SizeAd(320,50);
+            this.adsize = AdSize.BANNER;
         }
         else if (size == BannerSize.LARGE_BANNER){
-            this.adsize = new SizeAd(320,100);
+            this.adsize = AdSize.LARGE_BANNER;
         }
         else if (size == BannerSize.FULL_BANNER){
-            this.adsize = new SizeAd(468,60);
+            this.adsize = AdSize.FULL_BANNER;
         }
         else if (size == BannerSize.LEADERBOARD){
-            this.adsize = new SizeAd(728,90);
+            this.adsize = AdSize.LEADERBOARD;
         }
+        else if (size == BannerSize.SMART_BANNER){
+            this.adsize = AdSize.SMART_BANNER;
+        }
+
     }
 
-    void setAdUnit(String adUnitID){
-        adUnits.setTypeAd(typeAd);
-        adUnits.setAdUnit(adUnitID,adsize.getWith(), adsize.getHeight());
+    public void setAdUnit(String adUnitID){
+        if (typeAd == TypeAd.VIDEO){
+            this.adUnit = new VideoAdUnit(adUnitID, adsize.getWidth(), adsize.getHeight(), VideoAdUnit.PlacementType.IN_BANNER);
+        }
+        else if(typeAd == TypeAd.BANNER){
+            this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
+        }
+        else
+            this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
     }
 
-    Banner(Context context){
-        super();
-        adUnits = new AdUnits();
+    public Banner(Context context){
         this.context = context;
     }
 
 
     private void setUpBanner(final FrameLayout adFrame){
-        this.amBanner = new AdViewBanner(context);
+        this.amBanner = new PublisherAdView(context);
         amBanner.setAdUnitId(Constants.DFP_ADUNIT_ID);
-        amBanner.setAdSizes(adsize.getWith(),adsize.getHeight());
+        amBanner.setAdSizes(adsize);
         adFrame.removeAllViews();
-        adFrame.addView(amBanner.getPBAdview());
+        adFrame.addView(amBanner);
 
-        amBanner.setAdListener(new AdListeners(){
+        amBanner.setAdListener(new AdListener(){
             @Override
             public void onAdClicked() {
                 super.onAdClicked();
@@ -109,14 +142,24 @@ class Banner extends SetupPB{
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                adUnits.setfindPrebidCreativeSize(amBanner);
+                AdViewUtils.findPrebidCreativeSize(amBanner, new AdViewUtils.PbFindSizeListener() {
+                    @Override
+                    public void success(int width, int height) {
+                        amBanner.setAdSizes(new AdSize(width, height));
+                    }
+
+                    @Override
+                    public void failure(@NonNull PbFindSizeError error) {
+                        Log.d("MyTag", "error: " + error);
+                    }
+                });
                 adListeners.onAdLoaded();
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                adUnits.stopAutoRefresh();
+                adUnit.stopAutoRefresh();
                 loadBanner();
                 adListeners.onAdFailedToLoad(i);
             }
@@ -124,27 +167,38 @@ class Banner extends SetupPB{
     }
 
     private void loadBanner(){
-        final Request request = new Request();
-        request.CreateRequest();
-        adUnits.setAutoRefreshPeriodMillis(autoRefresh);
-        adUnits.fetchDemand(request.getRequest(), amBanner);
+        final PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
+        request = builder.build();
+        adUnit.setAutoRefreshPeriodMillis(autoRefresh);
+        adUnit.fetchDemand(request, new OnCompleteListener() {
+            @Override
+            public void onComplete(ResultCode resultCode) {
+                Banner.this.resultCode = resultCode;
+                amBanner.loadAd(request);
+                refresCount++;
+            }
+        });
     }
 
-    void setAdlistenners(final AdListeners adlistenners){
+    public void setAdlistenners(final AdListeners adlistenners){
         this.adListeners = adlistenners;
     }
 
-    void stopAutoRefresh() {
-        adUnits.stopAutoRefresh();
+    public void stopAutoRefresh() {
+        if (adUnit != null) {
+            adUnit.stopAutoRefresh();
+        }
     }
 
-    void startAutoRefresh(){
+    public void startAutoRefresh(){
         loadBanner();
     }
 
-    void desTroy(){
-        adUnits.desTroy();
-
+    public void desTroy(){
+        if (adUnit != null) {
+            adUnit.stopAutoRefresh();
+            adUnit = null;
+        }
     }
 
 }

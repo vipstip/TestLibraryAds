@@ -17,7 +17,7 @@ import org.prebid.mobile.OnCompleteListener;
 import org.prebid.mobile.ResultCode;
 import org.prebid.mobile.RewardedVideoAdUnit;
 
-public class RewardedAdVideo extends SetupPB {
+public class RewardedAdVideo {
 
     private int refreshCount = 0;
     private AdUnit adUnit;
@@ -26,12 +26,11 @@ public class RewardedAdVideo extends SetupPB {
     private Context context;
     private RewardedAdVideoLoadCallback rewardedAdVideoLoadCallback;
     private RewardedAdVideoCallback rewardedAdVideoCallback;
-    private AdListeners adListeners;
     private RewardedAd amRewardedAd;
     private Activity activity;
 
     void loadAd(Activity activity) {
-        SetupPBCustum();
+        SetupPB.getInstance();
         setupAMRewardedVideo();
         loadAMRewardedVideo(activity);
     }
@@ -41,7 +40,7 @@ public class RewardedAdVideo extends SetupPB {
     }
 
     void setAdUnit(String adUnitID){
-        this.adUnit = new RewardedVideoAdUnit("1001-1");
+        this.adUnit = new RewardedVideoAdUnit(adUnitID);
     }
 
     private void setupAMRewardedVideo() {
@@ -51,7 +50,7 @@ public class RewardedAdVideo extends SetupPB {
     RewardedAdVideo(Context context){
         super();
         this.context = context;
-    };
+    }
 
     private void loadAMRewardedVideo(final Activity activity) {
         this.activity = activity;

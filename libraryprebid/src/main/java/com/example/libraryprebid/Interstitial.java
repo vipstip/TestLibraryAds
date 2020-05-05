@@ -1,9 +1,9 @@
 package com.example.libraryprebid;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 
@@ -13,30 +13,30 @@ import org.prebid.mobile.OnCompleteListener;
 import org.prebid.mobile.ResultCode;
 import org.prebid.mobile.VideoInterstitialAdUnit;
 
-class Interstitial extends SetupPB {
+public class Interstitial {
     private int refreshCount = 0;
     private AdUnit adUnit;
     private ResultCode resultCode;
     private PublisherAdRequest request;
     private Context context;
     private int autoRefresh;
-    private SizeAd adsize;
     private AdListeners adListeners;
     private TypeAd typeAd;
     private PublisherInterstitialAd amInterstitial;
+    private AdSize adsize;
 
 
-    void loadAd() {
-        SetupPBCustum();
+    public void loadAd() {
+        SetupPB.getInstance();
         setupAMInterstitial();
         loadInterstitial();
     }
 
-    void setTypeAd(TypeAd typeAd) {
+    public void setTypeAd(TypeAd typeAd) {
         this.typeAd = typeAd;
     }
 
-    void setMillisAutoRefres(int autoRefresh) {
+    public void setMillisAutoRefres(int autoRefresh) {
         this.autoRefresh = autoRefresh;
     }
 
@@ -44,26 +44,25 @@ class Interstitial extends SetupPB {
         return refreshCount;
     }
 
-    void setSize(int with, int height){
-        this.adsize = new SizeAd(with,height);
+    public void setSize(int with, int height){
+        this.adsize = new AdSize(with,height);
     }
 
-    void setAdUnit(String adUnitID){
-        if (adsize != null && typeAd != TypeAd.INTERSTITIALSVIDEO)
+    public void setAdUnit(String adUnitID){
+        if (adsize != null && typeAd != TypeAd.VIDEO)
         {
-            this.adUnit = new InterstitialAdUnit(adUnitID,adsize.getWith(),adsize.getHeight());
+            this.adUnit = new InterstitialAdUnit(adUnitID,adsize.getWidth(),adsize.getHeight());
         }
-        else if (typeAd == TypeAd.INTERSTITIALSVIDEO){
+        else if (typeAd == TypeAd.VIDEO){
             this.adUnit = new VideoInterstitialAdUnit(adUnitID);
         }
-        else if(typeAd == TypeAd.INTERSTITIALS)
+        else if(typeAd == TypeAd.BANNER)
         this.adUnit = new InterstitialAdUnit(adUnitID);
     }
 
-    Interstitial(Context context){
-        super();
+    public Interstitial(Context context){
         this.context = context;
-    };
+    }
 
     private void setupAMInterstitial() {
         this.amInterstitial = new PublisherInterstitialAd(context);
@@ -131,21 +130,21 @@ class Interstitial extends SetupPB {
         });
     }
 
-    void setAdlistenners(final AdListeners adlistenners){
+    public void setAdlistenners(final AdListeners adlistenners){
         this.adListeners = adlistenners;
     }
 
-    void stopAutoRefresh() {
+    public void stopAutoRefresh() {
         if (adUnit != null) {
             adUnit.stopAutoRefresh();
         }
     }
 
-    void startAutoRefresh(){
+    public void startAutoRefresh(){
         loadInterstitial();
     }
 
-    void desTroy(){
+    public void desTroy(){
         if (adUnit != null) {
             adUnit.stopAutoRefresh();
             adUnit = null;

@@ -3,6 +3,7 @@ package com.example.libraryprebid;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 
 public abstract class RewardedAdVideoCallback {
     public RewardedAdVideoCallback() {

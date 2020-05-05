@@ -4,7 +4,27 @@ import org.prebid.mobile.Host;
 import org.prebid.mobile.PrebidMobile;
 
 class SetupPB {
-    void SetupPBCustum(){
+
+        private static final SetupPB instance = new SetupPB();
+
+        //private constructor to avoid client applications to use constructor
+        private SetupPB(){
+//            PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
+//            PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
+            PrebidMobile.setPrebidServerHost(Host.RUBICON);
+            PrebidMobile.setPrebidServerAccountId("1001");
+            PrebidMobile.setStoredAuctionResponse("sample_video_response");
+        }
+
+        static SetupPB getInstance(){
+            return instance;
+        }
+
+        void setHost(){
+        }
+
+
+        void SetupPBCustum(){
 //        Host.CUSTOM.setHostUrl("https://s2s.valueimpression.com/openrtb2/auction");
 //        Host.CUSTOM.setHostUrl("https://pb-server.vliplatform.com/openrtb2/auction");
 //        PrebidMobile.setPrebidServerHost(Host.CUSTOM);
@@ -16,10 +36,5 @@ class SetupPB {
 //        PrebidMobile.setPrebidServerHost(Host.RUBICON);
 //        PrebidMobile.setPrebidServerAccountId("1001");
 //        PrebidMobile.setStoredAuctionResponse("sample_video_response");
-    }
-
-    void SetupPBAppnexus(){
-        PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
-        PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
-    }
+        }
 }
