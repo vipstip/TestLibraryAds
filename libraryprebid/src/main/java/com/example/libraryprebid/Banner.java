@@ -31,6 +31,7 @@ public class Banner {
     private AdSize adsize;
     private Context context;
     private int autoRefresh = 30000;
+    private String adUnitID;
 
     private AdListeners adListeners;
     private TypeAd typeAd;
@@ -38,9 +39,13 @@ public class Banner {
     private PublisherAdView amBanner;
     private PublisherAdRequest request;
 
+    private int CountFailedLoad = 0;
 
     public void loadAd(FrameLayout layout){
+        stopAutoRefresh();
+        CountFailedLoad = 0;
         SetupPB.getInstance();
+        setAdUnit();
         setUpBanner(layout);
         loadBanner();
     }
@@ -85,15 +90,25 @@ public class Banner {
 
     }
 
-    public void setAdUnit(String adUnitID){
-        if (typeAd == TypeAd.VIDEO){
-            this.adUnit = new VideoAdUnit(adUnitID, adsize.getWidth(), adsize.getHeight(), VideoAdUnit.PlacementType.IN_BANNER);
+    private void setAdUnit(){
+        try {
+            if (typeAd == TypeAd.VIDEO){
+                this.adUnit = new VideoAdUnit(adUnitID, adsize.getWidth(), adsize.getHeight(), VideoAdUnit.PlacementType.IN_BANNER);
+            }
+            else if(typeAd == TypeAd.BANNER){
+                this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
+            }
+            else
+                this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
+        } catch (Exception e) {
+            if (adsize == null){
+                Log.e("Err LoadAd","Size for banner NULL");
+            }
         }
-        else if(typeAd == TypeAd.BANNER){
-            this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
-        }
-        else
-            this.adUnit = new BannerAdUnit(adUnitID,adsize.getWidth(), adsize.getHeight());
+    }
+
+    public void setAdUnitID(String adUnitID){
+        this.adUnitID = adUnitID;
     }
 
     public Banner(Context context){
@@ -153,14 +168,20 @@ public class Banner {
                         Log.d("MyTag", "error: " + error);
                     }
                 });
+                Log.e("Loaded", "ok");
+                CountFailedLoad = 0;
                 adListeners.onAdLoaded();
             }
 
             @Override
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
-                adUnit.stopAutoRefresh();
-                loadBanner();
+                stopAutoRefresh();
+                if (CountFailedLoad < 10){
+                    loadBanner();
+                    CountFailedLoad++;
+                }
+                Log.e("MyTag", "ok" + CountFailedLoad);
                 adListeners.onAdFailedToLoad(i);
             }
         });
@@ -169,15 +190,17 @@ public class Banner {
     private void loadBanner(){
         final PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
         request = builder.build();
-        adUnit.setAutoRefreshPeriodMillis(autoRefresh);
-        adUnit.fetchDemand(request, new OnCompleteListener() {
-            @Override
-            public void onComplete(ResultCode resultCode) {
-                Banner.this.resultCode = resultCode;
-                amBanner.loadAd(request);
-                refresCount++;
-            }
-        });
+        try {
+            adUnit.setAutoRefreshPeriodMillis(autoRefresh);
+            adUnit.fetchDemand(request, new OnCompleteListener() {
+                @Override
+                public void onComplete(ResultCode resultCode) {
+                    Banner.this.resultCode = resultCode;
+                    amBanner.loadAd(request);
+                    refresCount++;
+                }
+            });
+        } catch (Exception ignored) { }
     }
 
     public void setAdlistenners(final AdListeners adlistenners){

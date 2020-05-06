@@ -49,26 +49,29 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.btnad);
         adView = findViewById(R.id.adView);
 
-        interstitial = new Interstitial(MainActivity.this);
-        interstitial.setTypeAd(TypeAd.VIDEO);
-//        adManager.setID("1001-1");
+        banner = new Banner(MainActivity.this);
+        banner.setSize(BannerSize.MEDIUM_RECTANGLE);
 
-//        banner.setAdUnit("28226736-c0be-4cd6-961f-fd1ef48b058b");
+//        adManager.setID("1001-1");
+        banner.setAdUnitID("28226736-c0be-4cd6-961f-fd1ef48b058b");
+//        banner.setAdUnitID("6ace8c7d-88c0-4623-8117-75bc3f0a2e45");
+        banner.setTypeAd(TypeAd.BANNER);
 //        interstitial.setAdUnit("625c6125-f19e-4d5b-95c5-55501526b2a4");
-        interstitial.setAdUnit("1001-1");
+//            interstitial.setAdUnit("1001-1");
 //        adManager.setID("ac84fd30-aee6-46fe-adcf-b0327181b537");
 //        adManager.setID("965fbcb7-520b-4fae-a88c-4f0fe553adf7");
 //        adManager.setMillisAutoRefres(40000);
 
 //        interstitialVideo = new InterstitialVideo(MainActivity.this);
 //        interstitialVideo.setAdUnit("1001-1");
-//        interstitialVideo.setMillisAutoRefres(40000);
+        banner.setMillisAutoRefres(30000);
 //        dem = 0;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                setupAndLoadAMRewardedVideo();
-                interstitial.loadAd();
+//                banner.stopAutoRefresh();
+                banner.loadAd(adView);
 //                interstitialVideo.loadAd();
 //                adManager.setRewardedAdListenners(new RewardedAdVideoLoadCallback(){
 //                    @Override

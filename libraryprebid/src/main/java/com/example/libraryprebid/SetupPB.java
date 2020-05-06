@@ -9,11 +9,11 @@ class SetupPB {
 
         //private constructor to avoid client applications to use constructor
         private SetupPB(){
-//            PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
-//            PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
-            PrebidMobile.setPrebidServerHost(Host.RUBICON);
-            PrebidMobile.setPrebidServerAccountId("1001");
-            PrebidMobile.setStoredAuctionResponse("sample_video_response");
+            PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
+            PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
+//            PrebidMobile.setPrebidServerHost(Host.RUBICON);
+//            PrebidMobile.setPrebidServerAccountId("1001");
+//            PrebidMobile.setStoredAuctionResponse("sample_video_response");
         }
 
         static SetupPB getInstance(){
