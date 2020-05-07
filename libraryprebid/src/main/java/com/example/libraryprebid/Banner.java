@@ -67,24 +67,24 @@ public class Banner {
         this.adsize = new AdSize(with,height);
     }
 
-    public void setSize(BannerSize size){
+    public void setSize(AdSizes size){
 
-        if (size == BannerSize.MEDIUM_RECTANGLE){
+        if (size == AdSizes.MEDIUM_RECTANGLE){
             this.adsize = AdSize.MEDIUM_RECTANGLE;
         }
-        else if (size == BannerSize.BANNER){
+        else if (size == AdSizes.BANNER){
             this.adsize = AdSize.BANNER;
         }
-        else if (size == BannerSize.LARGE_BANNER){
+        else if (size == AdSizes.LARGE_BANNER){
             this.adsize = AdSize.LARGE_BANNER;
         }
-        else if (size == BannerSize.FULL_BANNER){
+        else if (size == AdSizes.FULL_BANNER){
             this.adsize = AdSize.FULL_BANNER;
         }
-        else if (size == BannerSize.LEADERBOARD){
+        else if (size == AdSizes.LEADERBOARD){
             this.adsize = AdSize.LEADERBOARD;
         }
-        else if (size == BannerSize.SMART_BANNER){
+        else if (size == AdSizes.SMART_BANNER){
             this.adsize = AdSize.SMART_BANNER;
         }
 

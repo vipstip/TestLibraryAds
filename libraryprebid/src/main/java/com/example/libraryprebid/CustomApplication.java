@@ -18,15 +18,16 @@ public class CustomApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //set Prebid Mobile global Settings
-        //region PrebidMobile API
+
         PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
         PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
         PrebidMobile.setShareGeoLocation(true);
         PrebidMobile.setApplicationContext(getApplicationContext());
         WebView obj = new WebView(this);
         obj.clearCache(true);
+
         //endregion
+
         if (BuildConfig.DEBUG) {
             sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
             this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

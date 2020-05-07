@@ -23,16 +23,17 @@ class Constants {
 
     //AppNexus
     // Prebid server config ids
-    private static final String PBS_ACCOUNT_ID_APPNEXUS = "e8df28e7-78ff-452d-b3af-ff4df83df832";
+//    private static final String PBS_ACCOUNT_ID_APPNEXUS = "e8df28e7-78ff-452d-b3af-ff4df83df832";
+    private static final String PBS_ACCOUNT_ID_APPNEXUS = "bfa84af2-bd16-4d35-96ad-31c6bb888df0";
     // DFP ad unit ids
     private static final String DFP_ADUNIT_ID_Prebid = "/307492156/Prebid_Display";
 //    private static final String DFP_ADUNIT_ID_Prebid = "/5300653/test_adunit_vast_pavliuchyk";
-
+    private static final String DFP_IN_BANNER_NATIVE_ADUNIT_ID_APPNEXUS = "/19968336/Wei_Prebid_Native_Test";
 
     static String PBS_ACCOUNT_ID = PBS_ACCOUNT_ID_APPNEXUS;
     // DFP ad unit ids
     static String DFP_ADUNIT_ID = DFP_ADUNIT_ID_Prebid;
-
+    static String DFP_BANNER_NATIVE_ADUNIT_ID = DFP_IN_BANNER_NATIVE_ADUNIT_ID_APPNEXUS;
 
 
 }
