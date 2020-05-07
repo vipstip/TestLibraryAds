@@ -1,6 +1,6 @@
 package com.example.libraryprebid;
 
-public enum BannerSize {
+public enum AdSizes {
     BANNER,
     LARGE_BANNER,
     MEDIUM_RECTANGLE,
