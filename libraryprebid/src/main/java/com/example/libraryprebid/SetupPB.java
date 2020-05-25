@@ -9,14 +9,15 @@ class SetupPB {
 
         //private constructor to avoid client applications to use constructor
         private SetupPB(){
+//            Host.CUSTOM.setHostUrl("https://static.vliplatform.com/test/rp3.php");
             Host.CUSTOM.setHostUrl("https://pb-server.vliplatform.com/openrtb2/auction");
-            PrebidMobile.setPrebidServerHost(Host.CUSTOM);
-            PrebidMobile.setPrebidServerAccountId("123456789");
+//            PrebidMobile.setPrebidServerHost(Host.CUSTOM);
+//            PrebidMobile.setPrebidServerAccountId("vli_video");
 //            PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
 //            PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
-//            PrebidMobile.setPrebidServerHost(Host.RUBICON);
-//            PrebidMobile.setPrebidServerAccountId("1001");
-//            PrebidMobile.setStoredAuctionResponse("sample_video_response");
+            PrebidMobile.setPrebidServerHost(Host.RUBICON);
+            PrebidMobile.setPrebidServerAccountId("1001");
+            PrebidMobile.setStoredAuctionResponse("sample_video_response");
         }
 
         static SetupPB getInstance(){

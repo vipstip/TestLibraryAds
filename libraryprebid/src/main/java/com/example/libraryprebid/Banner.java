@@ -177,7 +177,7 @@ public class Banner {
             public void onAdFailedToLoad(int i) {
                 super.onAdFailedToLoad(i);
                 stopAutoRefresh();
-                if (CountFailedLoad < 10){
+                if (CountFailedLoad < 3){
                     loadBanner();
                     CountFailedLoad++;
                 }
