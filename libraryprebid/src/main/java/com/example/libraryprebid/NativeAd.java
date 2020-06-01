@@ -63,7 +63,7 @@ public class NativeAd {
             }
         });
         nativeAdView.setAdSizes(AdSize.FLUID);
-        nativeAdView.setAdUnitId(Constants.DFP_BANNER_NATIVE_ADUNIT_ID);
+//        nativeAdView.setAdUnitId(Constants.DFP_BANNER_NATIVE_ADUNIT_ID);
         adFrame.addView(nativeAdView);
         final PublisherAdRequest.Builder builder = new PublisherAdRequest.Builder();
         request = builder.build();

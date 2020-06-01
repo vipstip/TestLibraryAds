@@ -45,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.btnad);
 //        adView = findViewById(R.id.adView);
 //
-//        banner = new Banner(MainActivity.this);
+        banner = new Banner(MainActivity.this);
 //        banner.setTypeAd(TypeAd.VIDEO);
-//        banner.setSize(AdSizes.MEDIUM_RECTANGLE);
+        banner.setSize(AdSizes.MEDIUM_RECTANGLE);
+        banner.setPlacement("banner1");
 //        banner.setAdUnitID("tag_video");
 //        banner.setAdUnitID("1001-1");
 //        adManager.setID("1001-1");
@@ -55,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
 //        banner.setAdUnitID("6ace8c7d-88c0-4623-8117-75bc3f0a2e45");
 //        banner.setTypeAd(TypeAd.BANNER);
 //        interstitial.setAdUnit("625c6125-f19e-4d5b-95c5-55501526b2a4");
-        interstitial = new Interstitial(this);
-        interstitial.setTypeAd(TypeAd.VIDEO);
-            interstitial.setAdUnit("1001-1");
+//        interstitial = new Interstitial(this);
+//        interstitial.setTypeAd(TypeAd.VIDEO);
+//            interstitial.setAdUnit("1001-1");
 //            interstitial.setAdUnit("tag_video");
 //        adManager.setID("ac84fd30-aee6-46fe-adcf-b0327181b537");
 //        adManager.setID("965fbcb7-520b-4fae-a88c-4f0fe553adf7");
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                setupAndLoadAMRewardedVideo();
 //                banner.stopAutoRefresh();
-//                banner.loadAd(adView);
-                    interstitial.loadAd();
+                banner.loadAd(adView);
+//                    interstitial.loadAd();
 //                adUnit = new NativeAdUnit("25e17008-5081-4676-94d5-923ced4359d3");
 //                createDFPNative();
 //                interstitialVideo.loadAd();

@@ -19,8 +19,6 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        PrebidMobile.setPrebidServerHost(Host.APPNEXUS);
-        PrebidMobile.setPrebidServerAccountId(Constants.PBS_ACCOUNT_ID);
         PrebidMobile.setShareGeoLocation(true);
         PrebidMobile.setApplicationContext(getApplicationContext());
         WebView obj = new WebView(this);

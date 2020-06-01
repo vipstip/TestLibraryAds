@@ -44,7 +44,7 @@ public class RewardedAdVideo {
     }
 
     private void setupAMRewardedVideo() {
-        amRewardedAd = new RewardedAd(context, Constants.DFP_ADUNIT_ID);
+//        amRewardedAd = new RewardedAd(context, Constants.DFP_ADUNIT_ID);
     }
 
     RewardedAdVideo(Context context){

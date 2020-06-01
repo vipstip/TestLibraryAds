@@ -66,7 +66,7 @@ public class Interstitial {
 
     private void setupAMInterstitial() {
         this.amInterstitial = new PublisherInterstitialAd(context);
-        amInterstitial.setAdUnitId(Constants.DFP_ADUNIT_ID);
+//        amInterstitial.setAdUnitId(Constants.DFP_ADUNIT_ID);
         amInterstitial.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
